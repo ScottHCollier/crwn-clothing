@@ -24,9 +24,9 @@ class App extends Component {
                     id: userSnap.id,
                     ...userSnap.data(),
                 });
+            } else {
+                setCurrentUser(userAuth);
             }
-
-            setCurrentUser(userAuth);
         });
     }
 

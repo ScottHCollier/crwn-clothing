@@ -19,7 +19,8 @@ function MenuItem({ title, imageUrl, size, linkUrl }) {
     return (
         <MenuItemContainer size={size}>
             <BackgroundImageContainer
-                imageUrl={imageUrl}
+                className="background-image"
+                style={{ backgroundImage: `url(${imageUrl})` }}
             ></BackgroundImageContainer>
             <ContentContainer onClick={handleClick}>
                 <ContentTitle>{title.toUpperCase()}</ContentTitle>

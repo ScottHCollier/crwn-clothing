@@ -43,7 +43,7 @@ class App extends Component {
                 <Header />
                 <Routes>
                     <Route exact path="/" element={<HomePage />} />
-                    <Route path="/shop" element={<ShopPage />} />
+                    <Route path="/shop/*" element={<ShopPage />} />
                     <Route exact path="/checkout" element={<CheckoutPage />} />
                     {this.props.currentUser ? (
                         <Route

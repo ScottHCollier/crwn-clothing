@@ -9,7 +9,7 @@ import { createStructuredSelector } from "reselect";
 import "./App.css";
 
 import HomePage from "./pages/homepage/homepage.component";
-import ShopPage from "./pages/shop/shop.component";
+import ShopContainer from "./pages/shop/shop.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
 import Header from "./components/header/header.component";
@@ -43,7 +43,7 @@ class App extends Component {
                 <Header />
                 <Routes>
                     <Route exact path="/" element={<HomePage />} />
-                    <Route path="/shop/*" element={<ShopPage />} />
+                    <Route path="/shop/*" element={<ShopContainer />} />
                     <Route exact path="/checkout" element={<CheckoutPage />} />
                     {this.props.currentUser ? (
                         <Route

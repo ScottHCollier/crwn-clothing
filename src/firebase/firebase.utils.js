@@ -17,7 +17,7 @@ const firebase = initializeApp(config);
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
-const db = getFirestore(firebase);
+export const db = getFirestore(firebase);
 
 export const auth = getAuth(firebase);
 
@@ -66,4 +66,27 @@ export const signInWithGoogle = async () => {
         const credential = GoogleAuthProvider.credentialFromError(error);
         console.warn(credential, errorCode, errorMessage, email);
     }
+};
+
+// Must be of type object
+export const addCollection = async (collectionKey, docName, objectsToAdd) => {
+    await setDoc(doc(db, collectionKey, docName), objectsToAdd);
+};
+
+export const convertCollectionSnapToMap = (collectionSnap) => {
+    const transformedCollection = collectionSnap.docs.map((doc) => {
+        const { title, items } = doc.data();
+
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items,
+        };
+    });
+
+    return transformedCollection.reduce((accumulator, collection) => {
+        accumulator[collection.title.toLowerCase()] = collection;
+        return accumulator;
+    }, {});
 };

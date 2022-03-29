@@ -8,20 +8,34 @@ import {
 } from "../../firebase/firebase.utils.js";
 
 import { updateCollections } from "../../redux/shop/shop.actions";
+import WithSpinner from "../../components/with-spinner/with-spinner.component";
 
 import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
 import CollectionPage from "../collection/collection.component";
 
-const ShopPage = () => {
+const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
+const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+
+const ShopPage = ({ loading }) => {
     const match = useMatch("/shop/:collectionId");
 
     return (
         <div className="shop-page">
             <Routes>
-                <Route path="/" element={<CollectionsOverview />} />
+                <Route
+                    path="/"
+                    element={
+                        <CollectionsOverviewWithSpinner isLoading={loading} />
+                    }
+                />
                 <Route
                     path=":collectionId"
-                    element={<CollectionPage match={match} />}
+                    element={
+                        <CollectionPageWithSpinner
+                            isLoading={loading}
+                            match={match}
+                        />
+                    }
                 />
             </Routes>
         </div>
@@ -29,6 +43,9 @@ const ShopPage = () => {
 };
 
 class ShopContainer extends Component {
+    state = {
+        loading: true,
+    };
     unsubscribeFromSnapshot = null;
 
     componentDidMount = async () => {
@@ -36,12 +53,13 @@ class ShopContainer extends Component {
         const collectionSnap = await getDocs(collection(db, "collections"));
         const collectionsMap = convertCollectionSnapToMap(collectionSnap);
         updateCollections(collectionsMap);
+        this.setState({ loading: false });
     };
 
     componentWillUnmount() {}
 
     render() {
-        return <ShopPage />;
+        return <ShopPage loading={this.state.loading} />;
     }
 }
 

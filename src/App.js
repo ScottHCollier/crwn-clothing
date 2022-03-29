@@ -6,7 +6,7 @@ import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import { createStructuredSelector } from "reselect";
 
-import "./App.css";
+import { GlobalStyle } from "./global.styles";
 
 import HomePage from "./pages/homepage/homepage.component";
 import ShopContainer from "./pages/shop/shop.component";
@@ -40,6 +40,7 @@ class App extends Component {
     render() {
         return (
             <div>
+                <GlobalStyle />
                 <Header />
                 <Routes>
                     <Route exact path="/" element={<HomePage />} />

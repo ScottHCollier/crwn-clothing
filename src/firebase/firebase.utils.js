@@ -68,7 +68,7 @@ export const signInWithGoogle = async () => {
     }
 };
 
-// Must be of type object
+// Must be of type object/map
 export const addCollection = async (collectionKey, docName, objectsToAdd) => {
     await setDoc(doc(db, collectionKey, docName), objectsToAdd);
 };
